@@ -1,0 +1,307 @@
+:root {
+    --bg-deep: #12071f;
+    --bg-darker: #07020d;
+    --window-bg: rgba(22, 10, 36, 0.88);
+    --border-neon: #ff2a85;
+    --text-main: #f5f2f9;
+    --text-dim: #a482c4;
+    --accent-pink: #ff2a85;
+    --accent-glow: rgba(255, 42, 133, 0.45);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Consolas', 'Courier New', Courier, monospace;
+}
+
+body {
+    background: radial-gradient(circle at 50% 30%, var(--bg-deep) 0%, var(--bg-darker) 100%);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Patrón de celdas digitales en el fondo */
+.matrix-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(255, 42, 133, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 42, 133, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -3;
+}
+
+/* Orbe de luz ambiental rosa/morada detrás de la caja */
+.cyber-glow-orb {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(255, 42, 133, 0.25) 0%, rgba(138, 43, 226, 0.1) 50%, transparent 70%);
+    border-radius: 50%;
+    z-index: -2;
+    filter: blur(40px);
+    animation: pulseOrb 6s ease-in-out infinite alternate;
+}
+
+@keyframes pulseOrb {
+    0% { transform: scale(0.9); opacity: 0.7; }
+    100% { transform: scale(1.2); opacity: 1; }
+}
+
+/* Líneas de escaneo finas tipo monitor retro/cyber */
+.scanlines {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(18, 7, 31, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+    background-size: 100% 4px;
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.terminal-shell {
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 10px;
+    border: 1px solid var(--border-neon);
+    box-shadow: 0 0 35px var(--accent-glow), inset 0 0 15px rgba(255, 42, 133, 0.1);
+    background: var(--window-bg);
+    backdrop-filter: blur(12px);
+    z-index: 11;
+}
+
+.terminal-bg-feed {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease;
+    z-index: -4;
+}
+
+.terminal-bg-feed.active-cam {
+    opacity: 0.4;
+    visibility: visible;
+}
+
+.terminal-container {
+    padding: 20px;
+}
+
+.terminal-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    border-bottom: 1px solid rgba(255, 42, 133, 0.25);
+    padding-bottom: 10px;
+}
+
+.traffic-lights {
+    display: flex;
+    gap: 6px;
+}
+
+.traffic-lights span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.dot-red { background-color: #ff5f56; }
+.dot-yellow { background-color: #ffbd2e; }
+.dot-green { background-color: #27c93f; }
+
+.terminal-title {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+}
+
+.node-status {
+    font-size: 0.7rem;
+    color: var(--accent-pink);
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.blink-cursor {
+    animation: blinkCursor 1s infinite;
+}
+
+@keyframes blinkCursor {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Estilos de la firma / autoría */
+.dev-signature {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 6px 10px;
+    border-radius: 4px;
+    border-left: 2px solid var(--accent-pink);
+}
+
+.dev-name {
+    color: var(--text-main);
+    font-weight: bold;
+}
+
+.dev-github {
+    margin-left: auto;
+    color: var(--accent-pink);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.dev-github:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+.timer-core {
+    text-align: center;
+    margin-bottom: 20px;
+    background: rgba(10, 3, 18, 0.75);
+    padding: 16px;
+    border-radius: 6px;
+    border: 1px dashed rgba(255, 42, 133, 0.35);
+}
+
+.status-badge {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+#timer-state {
+    color: var(--accent-pink);
+    font-weight: bold;
+}
+
+.matrix-display {
+    font-size: 3.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: var(--text-main);
+    text-shadow: 0 0 15px var(--accent-glow);
+}
+
+.colon {
+    color: var(--accent-pink);
+    animation: blinkCursor 1s infinite;
+}
+
+.display-units {
+    font-size: 0.6rem;
+    color: var(--text-dim);
+    letter-spacing: 3px;
+    margin-top: 4px;
+}
+
+.config-panel {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.input-cell {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.input-cell label {
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.input-cell input {
+    background: rgba(10, 3, 18, 0.85);
+    border: 1px solid rgba(255, 42, 133, 0.35);
+    border-radius: 4px;
+    color: var(--text-main);
+    padding: 10px;
+    text-align: center;
+    font-size: 1.2rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.input-cell input:focus {
+    border-color: var(--accent-pink);
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.command-row {
+    display: flex;
+    gap: 8px;
+}
+
+.cmd-btn {
+    flex: 1;
+    padding: 10px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.btn-exec {
+    background: var(--accent-pink);
+    color: #fff;
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.btn-exec:hover {
+    background: #ff4797;
+    box-shadow: 0 0 18px var(--accent-pink);
+}
+
+.btn-halt {
+    background: rgba(130, 40, 180, 0.3);
+    color: var(--text-main);
+    border: 1px solid rgba(170, 60, 230, 0.4) !important;
+}
+
+.btn-halt:hover {
+    background: rgba(130, 40, 180, 0.5);
+}
+
+.btn-reset {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-dim);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.btn-reset:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--text-main);
+}

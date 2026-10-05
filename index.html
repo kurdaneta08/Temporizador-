@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberTerminal // 60s Core</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Capas de fondo dinámicas -->
+    <div class="matrix-grid"></div>
+    <div class="cyber-glow-orb"></div>
+    <div class="scanlines"></div>
+
+    <div class="terminal-shell">
+        <video class="terminal-bg-feed" id="rocket-video" muted playsinline aria-hidden="true">
+            <source src="cohete.mp4" type="video/mp4">
+        </video>
+
+        <div class="terminal-container">
+            <header class="terminal-topbar">
+                <div class="traffic-lights">
+                    <span class="dot-red"></span>
+                    <span class="dot-yellow"></span>
+                    <span class="dot-green"></span>
+                </div>
+                <div class="terminal-title">root@cyber-node:~# timer_60s.sh</div>
+                <div class="node-status"><span class="blink-cursor">_</span> ACTIVE</div>
+            </header>
+
+            <!-- Sección de Créditos / Autoría dentro de la terminal -->
+            <div class="dev-signature">
+                <span class="dev-label">DEV:</span> <span class="dev-name">Karen Urdaneta</span> 
+                <a href="https://github.com/kurdaneta08" target="_blank" rel="noopener noreferrer" class="dev-github">@kurdaneta08</a>
+            </div>
+
+            <section class="timer-core" aria-label="Contador de tiempo">
+                <div class="status-badge">STATUS: <span id="timer-state">STANDBY</span></div>
+                <div class="matrix-display" aria-live="polite">
+                    <span>00</span><span class="colon">:</span><span id="seconds-display">60</span>
+                </div>
+                <div class="display-units"><span>SECONDS</span></div>
+            </section>
+
+            <section class="config-panel" aria-label="Ajustar segundos">
+                <div class="input-cell full-width">
+                    <label for="seconds">Target Seconds (Max 60)</label>
+                    <input id="seconds" type="number" min="1" max="60" value="60" inputmode="numeric">
+                </div>
+            </section>
+
+            <div class="command-row">
+                <button class="cmd-btn btn-exec" id="start-button" type="button"><span>&gt;</span> Run</button>
+                <button class="cmd-btn btn-halt" id="pause-button" type="button"><span>||</span> Freeze</button>
+                <button class="cmd-btn btn-reset" id="restart-button" type="button"><span>#</span> Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
